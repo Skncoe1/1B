@@ -10,7 +10,23 @@ $(document).ready(function () {
             };
             return student;
         }
+        function validateEmailAtSign(email) {
+            var atSignCount = 0;
+
+            for (var i = 0; i < email.length; i++) {
+                if (email[i] === "@") {
+                    atSignCount++;
+                }
+            }
+
+            return atSignCount === 1;
+        }
         function storeDataToLocalStorage() {
+            let email = $("#Email").val();
+            if (!validateEmailAtSign(email)) {
+                alert("Please enter a valid email address with a single @ sign.");
+                return; // Stop the execution if email is invalid
+            }
             if (!localStorage.getItem("student")) {
                 localStorage.setItem("student", JSON.stringify(getStudentData()));
             } else {
